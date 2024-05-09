@@ -1,10 +1,12 @@
-import { Col, Row} from "react-bootstrap";
+import {Button, Col, Modal, Row} from "react-bootstrap";
 import React, { useState } from 'react';
 import {Link} from "react-router-dom";
+import Table from "react-bootstrap/Table";
 
 function FormElement(){
     const [inputs, setInputs] = useState({});
     const [result, setResult] = useState('');
+    const [show, setShow] = useState(false);
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -19,25 +21,52 @@ function FormElement(){
         //check The form values
     }
 
-    return(
-        <Row>
-            <Col>
-                <form action="#">
-                    <label className="form-label">Your name:</label>
-                    <input
-                        type="text"
-                        name="username"
-                        value={inputs.username || ""} // why this || ""? because if the value is undefined, React will complain
-                        onChange={handleChange}
-                        className="form-control"
-                    />
-                    <Link className="btn btn-primary m-3" to="/game" onClick={()=>handleSubmit()}>Play</Link>
-                    <Link className="btn btn-primary m-3" to="/setting">Setting</Link>
-                    <Link className="btn btn-primary m-3" to="/score">High Score</Link>
-                </form>
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
-            </Col>
-        </Row>
+    return(
+        <>
+            <Row>
+                <Col>
+                    <form action="#">
+                        <label className="form-label">Your name:</label>
+                        <input
+                            type="text"
+                            name="username"
+                            value={inputs.username || ""} // why this || ""? because if the value is undefined, React will complain
+                            onChange={handleChange}
+                            className="form-control"
+                        />
+                        <Link className="btn btn-primary" to="/game" onClick={()=>handleSubmit()}>Play</Link>
+                        <Link className="btn btn-primary" to="/setting">Setting</Link>
+                        <Button variant="primary" onClick={handleShow}>High Score</Button>
+                        {/*<Link className="btn btn-primary m-3" to="/score">High Score</Link>*/}
+                    </form>
+                </Col>
+            </Row>
+
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Leaderboard</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Table striped bordered hover>
+                        <thead>
+                        <tr>
+                            <th>
+                                The table is empty! There were no games yet 🎮
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </Table>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>Close</Button>
+                </Modal.Footer>
+            </Modal>
+        </>
     );
 }
 

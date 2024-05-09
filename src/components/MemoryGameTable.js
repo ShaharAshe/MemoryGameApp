@@ -15,7 +15,6 @@ function MemoryGameTable(){
             <Header/>
             <Routes>
                 <Route path="/" element={<PageContentForm/>}/>
-                <Route path="/score" element ={<PageContentScore/>} />
                 <Route path="/setting" element={<PageContentSetting/>}/>
                 <Route path="/game" element ={<PageContentGame/>}/>
                 {/*<Route path="*" element={<ErrorPage />} />*/}
