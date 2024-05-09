@@ -7,10 +7,10 @@ import SettingForm from "./SettingForm";
 import PageContentGame from "./PageContentGame";
 
 
-function PageContentForm(){
+function PageContentForm(props){
     return(
         <>
-            <FormElement/>
+            <FormElement inputs={props.inputs} updateInput={props.updateInput} updateResult={props.updateResult} show={props.show} updateShow={props.updateShow}/>
         </>
     );
 }

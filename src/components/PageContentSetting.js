@@ -3,11 +3,11 @@ import React from "react";
 import SettingForm from "./SettingForm";
 import PageContentScore from "./PageContentScore";
 
-function PageContentSetting(){
+function PageContentSetting(props){
     return (
         <>
-            <FormElement/>
-            <SettingForm/>
+            <FormElement inputs={props.inputs} updateInput={props.updateInput} updateResult={props.updateResult} show={props.show} updateShow={props.updateShow}/>
+            <SettingForm inputs={props.inputs} updateInput={props.updateInput} updateResult={props.updateResult} show={props.show} updateShow={props.updateShow}/>
         </>
     )
 }

@@ -3,26 +3,22 @@ import React, { useState } from 'react';
 import {Link} from "react-router-dom";
 import Table from "react-bootstrap/Table";
 
-function FormElement(){
-    const [inputs, setInputs] = useState({});
-    const [result, setResult] = useState('');
-    const [show, setShow] = useState(false);
-
+function FormElement(props){
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
         const score = 0;
         // the expression [name] is evaluated to the value of the variable name
         // note that the square brackets [] do not denote an array!
-        setInputs(values => ({...values, [name]: value, score}))
+        props.updateInput(values => ({...values, [name]: value, score}))
     }
 
     const handleSubmit = (event) => {
         //check The form values
     }
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleClose = () => props.updateShow(false);
+    const handleShow = () => props.updateShow(true);
 
     return(
         <>
@@ -33,7 +29,7 @@ function FormElement(){
                         <input
                             type="text"
                             name="username"
-                            value={inputs.username || ""} // why this || ""? because if the value is undefined, React will complain
+                            value={props.inputs.username || ""}
                             onChange={handleChange}
                             className="form-control"
                         />
@@ -45,7 +41,7 @@ function FormElement(){
                 </Col>
             </Row>
 
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={props.show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Leaderboard</Modal.Title>
                 </Modal.Header>
