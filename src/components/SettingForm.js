@@ -38,7 +38,7 @@ function SettingForm(props){
                     </div>
                     <div>
                         <label htmlFor="customRange3" className="form-label">
-                            Delay (in seconds): {props.inputs.delay}
+                            Delay (in seconds): {props.inputs.delay||"0.5 (default)"}
                         </label>
                         <input
                             type="range"
@@ -48,6 +48,7 @@ function SettingForm(props){
                             max="2"
                             step="0.5"
                             id="customRange3"
+                            defaultValue="0.5"
                             value={props.inputs.delay}
                             onChange={handleChange}
                         />
