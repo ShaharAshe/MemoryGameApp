@@ -39,7 +39,7 @@ function SettingForm(props){
                                 max="5"
                             />
                         </div>
-                        {props.rowColAlert?<div className="bad-val-fu alert alert-danger">(row x col) should be even</div>:""}
+                        {props.rowColAlert?<div className="bad-val-fu alert alert-danger">(row x col) should be even. Also, the cols and the rows should be between 2 and 5</div>:""}
                         <div>
                             <label htmlFor="customRange3" className="form-label">
                                 Delay (in seconds): {props.inputs.delay||""}

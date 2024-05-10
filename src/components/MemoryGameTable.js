@@ -18,7 +18,7 @@ function MemoryGameTable(){
             <Routes>
                 <Route path="/" element={<PageContentForm inputs={inputs} updateInput={setInputs} updateResult={setResult} show={show} updateShow={setShow} nameAlert={nameAlert} updateNameAlert={setNameAlert} updateRowColAlert={setRowColAlert}/>}/>
                 <Route path="setting" element={<PageContentSetting inputs={inputs} updateInput={setInputs} updateResult={setResult} show={show} updateShow={setShow} nameAlert={nameAlert} updateNameAlert={setNameAlert} rowColAlert={rowColAlert} updateRowColAlert={setRowColAlert}/>}/>
-                <Route path="/game" element ={<PageContentGame gameBoardResult={result}/>}/>
+                <Route path="/game" element ={<PageContentGame inputs={inputs}/>}/>
                 {/*<Route path="*" element={<ErrorPage />} />*/}
             </Routes>
         </BrowserRouter >

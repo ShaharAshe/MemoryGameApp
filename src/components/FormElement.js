@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import PageContentModal from "./PageContentModal";
 
 function FormElement(props){
-    const userName_pattern = /^[A-Za-z]+ ?[A-Za-z]*$/;
+    const userName_pattern = /^[A-Za-z]{1,12}$/;
     const handleChange = (event) => {
         const name = event.target.name.trim().toLowerCase();
         const value = event.target.value;
@@ -16,17 +16,13 @@ function FormElement(props){
         {
             props.updateNameAlert(true);
             is_prevent = true;
-        }
-        else{
+        } else
             props.updateNameAlert(false);
-        }
-        if(props.inputs.rows%2!==0 && props.inputs.rows%2!==0){
+        if((props.inputs.rows%2!==0 && props.inputs.cols%2!==0)||props.inputs.rows<2||props.inputs.rows>5||props.inputs.cols<2||props.inputs.cols>5){
             props.updateRowColAlert(true);
             is_prevent = true;
-        }
-        else{
+        } else
             props.updateRowColAlert(false);
-        }
         if (is_prevent)
             event.preventDefault();
     }
@@ -50,7 +46,7 @@ function FormElement(props){
                             />
                         </div>
                         {props.nameAlert?<div className="bad-val-fu alert alert-danger">Username should have
-                            the letters a-z and A-Z and a space only</div>:""}
+                            the letters a-z and A-Z. And maximum 12 letters!</div>:""}
                         <div>
                             <Button variant="primary" type="submit">Play</Button>
                             <Link className="btn btn-primary" to="/setting">Setting</Link>
