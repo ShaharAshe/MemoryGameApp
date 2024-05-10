@@ -37,6 +37,7 @@ function SettingForm(props){
                             max="5"
                         />
                     </div>
+                    {props.rowColAlert?<div className="bad-val-fu alert alert-danger">(row x col) should be even</div>:""}
                     <div>
                         <label htmlFor="customRange3" className="form-label">
                             Delay (in seconds): {props.inputs.delay||""}
@@ -47,7 +48,7 @@ function SettingForm(props){
                             className="form-range"
                             min="0.5"
                             max="2"
-                            step="0.5"
+                            step="0.1"
                             id="customRange3"
                             value={props.inputs.delay}
                             onChange={handleChange}

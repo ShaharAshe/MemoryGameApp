@@ -10,7 +10,7 @@ import PageContentGame from "./PageContentGame";
 function PageContentForm(props){
     return(
         <>
-            <FormElement inputs={props.inputs} updateInput={props.updateInput} updateResult={props.updateResult} show={props.show} updateShow={props.updateShow} alert={props.alert} updateAlert={props.updateAlert}/>
+            <FormElement inputs={props.inputs} updateInput={props.updateInput} updateResult={props.updateResult} show={props.show} updateShow={props.updateShow} nameAlert={props.nameAlert} updateNameAlert={props.updateNameAlert} updateRowColAlert={props.updateRowColAlert}/>
         </>
     );
 }

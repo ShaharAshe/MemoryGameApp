@@ -12,12 +12,24 @@ function FormElement(props){
     }
 
     const handleSubmit = (event) => {
+        let is_prevent = false;
         if (!userName_pattern.test(props.inputs.username.trim()))
         {
-            if (props.inputs.username.trim().length)
-                props.updateAlert(true);
+            props.updateNameAlert(true);
+            is_prevent = true;
+        }
+        else{
+            props.updateNameAlert(false);
+        }
+        if(props.inputs.rows%2!==0 && props.inputs.rows%2!==0){
+            props.updateRowColAlert(true);
+            is_prevent = true;
+        }
+        else{
+            props.updateRowColAlert(false);
+        }
+        if (is_prevent)
             event.preventDefault();
-            }
     }
 
     const handleClose = () => props.updateShow(false);
@@ -27,7 +39,7 @@ function FormElement(props){
         <>
             <Row>
                 <Col>
-                    <form action="/game" onClick={handleSubmit}>
+                    <form action="/game" onSubmit={handleSubmit}>
                         <label className="form-label">Your name:</label>
                         <input
                             type="text"
@@ -36,9 +48,8 @@ function FormElement(props){
                             onChange={handleChange}
                             className="form-control"
                             placeholder="Enter Your Name"
-                            pattern="^[A-Za-z]+ ?[A-Za-z]*$"
                         />
-                        {props.alert?<div className="bad-val-fu alert alert-danger">Username should have
+                        {props.nameAlert?<div className="bad-val-fu alert alert-danger">Username should have
                             the letters a-z and A-Z and a space only</div>:""}
                         <Button variant="primary" type="submit">Play</Button>
                         <Link className="btn btn-primary" to="/setting">Setting</Link>
