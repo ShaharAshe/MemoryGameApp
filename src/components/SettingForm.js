@@ -6,10 +6,7 @@ function SettingForm(props){
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
-        const score = 0;
-        // the expression [name] is evaluated to the value of the variable name
-        // note that the square brackets [] do not denote an array!
-        props.updateInput(values => ({...values, [name]: value, score}))
+        props.updateInput(values => ({...values, [name]: value}))
     }
 
     return(
@@ -24,6 +21,8 @@ function SettingForm(props){
                             value={props.inputs.rows || ""}
                             onChange={handleChange}
                             className="form-control"
+                            min="2"
+                            max="5"
                         />
                     </div>
                     <div>
@@ -34,11 +33,13 @@ function SettingForm(props){
                             value={props.inputs.cols || ""}
                             onChange={handleChange}
                             className="form-control"
+                            min="2"
+                            max="5"
                         />
                     </div>
                     <div>
                         <label htmlFor="customRange3" className="form-label">
-                            Delay (in seconds): {props.inputs.delay||"0.5 (default)"}
+                            Delay (in seconds): {props.inputs.delay||""}
                         </label>
                         <input
                             type="range"
@@ -48,7 +49,6 @@ function SettingForm(props){
                             max="2"
                             step="0.5"
                             id="customRange3"
-                            defaultValue="0.5"
                             value={props.inputs.delay}
                             onChange={handleChange}
                         />
