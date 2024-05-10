@@ -1,12 +1,9 @@
 import Header from "./Header";
 import PageContentForm from "./PageContentForm";
 import PageContentGame from "./PageContentGame";
-import SettingForm from "./SettingForm";
 import {BrowserRouter, Route, Routes } from "react-router-dom";
-import FormElement from "./FormElement";
 import React, {useState} from "react";
 import PageContentSetting from "./PageContentSetting";
-import PageContentScore from "./PageContentScore";
 
 function MemoryGameTable(){
     const [inputs, setInputs] = useState({username:"", rows:4, cols:4, delay:0.5});

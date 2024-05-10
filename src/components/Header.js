@@ -5,7 +5,7 @@ function Header(){
         <Row style={{backgroundColor: 'lightgray'}}>
             <Col>
               <h2>Memory Game</h2>
-              <p>Click on the cards to flip them and find the natching pairs eith as little flips as possible.</p>
+              <p>Click on the cards to flip them and find the matching pairs with as little flips as possible.</p>
           </Col>
         </Row>
     );
