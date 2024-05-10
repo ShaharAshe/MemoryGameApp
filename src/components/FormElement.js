@@ -6,7 +6,7 @@ function FormElement(props){
     const userName_pattern = /^[A-Za-z]{1,12}$/;
     const handleChange = (event) => {
         const name = event.target.name.trim().toLowerCase();
-        const value = event.target.value;
+        const value = event.target.value.trim().toLowerCase();
         props.updateInput(values => ({...values, [name]: value}))
     }
 
@@ -32,7 +32,7 @@ function FormElement(props){
         <>
             <Row>
                 <Col>
-                    <form action="/game" onSubmit={handleSubmit}>
+                    <form action="#">
                         <div>
                             <label htmlFor="username" className="form-label">Your name:</label>
                             <input
@@ -48,7 +48,7 @@ function FormElement(props){
                         {props.nameAlert?<div className="bad-val-fu alert alert-danger">Username should have
                             the letters a-z and A-Z. And maximum 12 letters!</div>:""}
                         <div>
-                            <Button variant="primary" type="submit">Play</Button>
+                            <Link className="btn btn-primary" to="/game" onSubmit={handleSubmit}>Play</Link>
                             <Link className="btn btn-primary" to="/setting">Setting</Link>
                             <Button variant="primary" onClick={handleShow} type="button">High Score</Button>
                         </div>

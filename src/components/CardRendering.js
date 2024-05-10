@@ -5,15 +5,20 @@ import {Col, Image, Row} from "react-bootstrap";
 function CardRendering(props){
     const [images, setImages] = useState({});
     const initializeImages = () => {
-        const newImages = {};
-        for (let i = 0; i <= 15; ++i) {
-            newImages[i] = '\\images\\' + i + '.jpg'; // Example path
+        const newImages = [];
+        for (let i = 0; i < (props.inputs.cols*props.inputs.cols)/2; ++i) {
+            newImages[i] = '\\images\\' + i + '.jpg';
         }
-        for (let i = 0; i < 15; ++i) {
+        for (let i = 0; i < (props.inputs.cols*props.inputs.cols)/2; ++i) {
+            newImages.push(newImages[i]);
+        }
+        {console.log(Object.keys(newImages))}
+        for (let i = 0; i < (props.inputs.cols*props.inputs.cols); ++i) {
+            const change_i = Math.floor(Math.random()*(props.inputs.cols*props.inputs.cols));
             if (i % 2 !== 0) {
-                let temp = newImages[0];
-                newImages[0] = newImages[15 - 1 - i];
-                newImages[15 - 1 - i] = temp;
+                let temp = newImages[change_i];
+                newImages[change_i] = newImages[(props.inputs.cols*props.inputs.cols) - 1 - i];
+                newImages[(props.inputs.cols*props.inputs.cols) - 1 - i] = temp;
             }
         }
         setImages(newImages);
@@ -25,8 +30,8 @@ function CardRendering(props){
             const row = []
             for (let j = 0; j < props.inputs.cols; j++) {
                 row.push(
-                    <Col xs={12/props.inputs.cols} key={i + j + (props.inputs.cols-1)} className={((i + j) * (i + 1)).toString()}>
-                        <img src={images[i + j + (props.inputs.cols-1)]} className="img-fluid" alt="img"/>
+                    <Col xs={12/props.inputs.cols} key={i*props.inputs.cols + j} className={((i + j) * (i + 1)).toString()}>
+                        <img src={images[i*props.inputs.cols + j]} className="img-fluid" alt="img"/>
                     </Col>
                 );
             }
@@ -42,7 +47,7 @@ function CardRendering(props){
         if (Object.keys(images).length > 0) {
             createCards(images); // Create cards when images are set
         }
-    }, [createCards, images]);
+    }, [images]);
 
     return (
         <div>{props.cards}</div>
