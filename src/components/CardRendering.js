@@ -1,18 +1,21 @@
 import {useEffect, useState} from "react";
-import {forEach} from "react-bootstrap/ElementChildren";
-import {Col, Image, Row} from "react-bootstrap";
+import {Card, Col, Row} from "react-bootstrap";
 
 function CardRendering(props){
-    const [images, setImages] = useState({});
+    const [exposure, setExposure] = useState([]);
+    function handleExposure(event) {
+        const num_pattern = /[0-9]+$/;
+        const img_num = parseInt(num_pattern.exec(event.target.className.trim())[0]);
+        setExposure(prevExposure => [...prevExposure, img_num]);
+    }
     const initializeImages = () => {
         const newImages = [];
-        for (let i = 0; i < (props.inputs.cols*props.inputs.cols)/2; ++i) {
+        for (let i = 0; i < (props.inputs.rows*props.inputs.cols)/2; ++i) {
             newImages[i] = '\\images\\' + i + '.jpg';
         }
-        for (let i = 0; i < (props.inputs.cols*props.inputs.cols)/2; ++i) {
+        for (let i = 0; i < (props.inputs.rows*props.inputs.cols)/2; ++i) {
             newImages.push(newImages[i]);
         }
-        {console.log(Object.keys(newImages))}
         for (let i = 0; i < (props.inputs.cols*props.inputs.cols); ++i) {
             const change_i = Math.floor(Math.random()*(props.inputs.cols*props.inputs.cols));
             if (i % 2 !== 0) {
@@ -21,9 +24,8 @@ function CardRendering(props){
                 newImages[(props.inputs.cols*props.inputs.cols) - 1 - i] = temp;
             }
         }
-        setImages(newImages);
+        props.updateImages(newImages);
     };
-
     const createCards = (images) => {
         const upCards = [];
         for (let i = 0; i < props.inputs.rows; i++) {
@@ -31,11 +33,16 @@ function CardRendering(props){
             for (let j = 0; j < props.inputs.cols; j++) {
                 row.push(
                     <Col xs={12/props.inputs.cols} key={i*props.inputs.cols + j} className={((i + j) * (i + 1)).toString()}>
-                        <img src={images[i*props.inputs.cols + j]} className="img-fluid" alt="img"/>
+                        <Card onClick={handleExposure}>
+                        {exposure.includes(i * props.inputs.cols + j)?
+                            (<Card.Img variant="top" src={images[i * props.inputs.cols + j]} className={(i * props.inputs.cols + j).toString()}/>)
+                            :
+                            (<Card.Img variant="top" src={'\\images\\card.jpg'} className={(i * props.inputs.cols + j).toString()}/>)}
+                        </Card>
                     </Col>
-                );
+                )
             }
-            upCards.push(<Row>{row}</Row>);
+            upCards.push(<Row key={i}>{row}</Row>);
         }
         props.updateCards(upCards);
     };
@@ -44,10 +51,10 @@ function CardRendering(props){
         initializeImages();
     },[]);
     useEffect(() => {
-        if (Object.keys(images).length > 0) {
-            createCards(images); // Create cards when images are set
+        if (Object.keys(props.images).length > 0) {
+            createCards(props.images);
         }
-    }, [images]);
+    }, [props.images, exposure]);
 
     return (
         <div>{props.cards}</div>

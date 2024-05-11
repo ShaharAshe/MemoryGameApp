@@ -1,6 +1,7 @@
 import {Button, Modal} from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import React from "react";
+import ScoreElement from "./ScoreElement";
 
 function PageContentModal(props){
     const handleClose = () => props.updateShow(false);
@@ -11,15 +12,7 @@ function PageContentModal(props){
                     <Modal.Title>Leaderboard</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Table striped bordered hover>
-                        <thead>
-                        <tr>
-                            <th>The table is empty! There were no games yet 🎮</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </Table>
+                    <ScoreElement/>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>Close</Button>
