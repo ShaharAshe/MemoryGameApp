@@ -3,10 +3,14 @@ import {Card, Col, Row} from "react-bootstrap";
 
 function CardRendering(props){
     const [exposure, setExposure] = useState([]);
+    const [gameSet, setGameSet] = useState([])
     function handleExposure(event) {
-        const num_pattern = /[0-9]+$/;
-        const img_num = parseInt(num_pattern.exec(event.target.className.trim())[0]);
-        setExposure(prevExposure => [...prevExposure, img_num]);
+        if(exposure.length !== 2) {
+            const num_pattern = /[0-9]+$/;
+            const img_num = num_pattern.exec(event.target.className.trim());
+            if (img_num && !gameSet.includes(parseInt(img_num[0])))
+                setExposure(prevExposure => [...prevExposure, parseInt(img_num[0])]);
+        }
     }
     const initializeImages = () => {
         const newImages = [];
@@ -34,7 +38,7 @@ function CardRendering(props){
                 row.push(
                     <Col xs={12/props.inputs.cols} key={i*props.inputs.cols + j} className={((i + j) * (i + 1)).toString()}>
                         <Card onClick={handleExposure}>
-                        {exposure.includes(i * props.inputs.cols + j)?
+                        {(gameSet.includes(i * props.inputs.cols + j) || exposure.includes(i * props.inputs.cols + j))?
                             (<Card.Img variant="top" src={images[i * props.inputs.cols + j]} className={(i * props.inputs.cols + j).toString()}/>)
                             :
                             (<Card.Img variant="top" src={'\\images\\card.jpg'} className={(i * props.inputs.cols + j).toString()}/>)}
@@ -55,6 +59,26 @@ function CardRendering(props){
             createCards(props.images);
         }
     }, [props.images, exposure]);
+    useEffect(() => {
+        // Adding a delay before executing the logic
+        setTimeout(() => {
+            {console.log(exposure.length)}
+            {console.log(exposure)}
+            if (exposure.length === 2) {
+                if (props.images[exposure[0]] === props.images[exposure[1]]) {
+                    setGameSet(addSet => [...addSet, exposure[0], exposure[1]]);
+                    props.updateScore(a => a+10)
+                }
+                else{
+                    if(props.score-5<0)
+                        props.updateScore(a => 0)
+                    else
+                        props.updateScore(a => a-5)
+                }
+                setExposure(e => []);
+            }
+        }, 1000); // Adjust the delay time as needed (in milliseconds)
+    }, [exposure]);
 
     return (
         <div>{props.cards}</div>
