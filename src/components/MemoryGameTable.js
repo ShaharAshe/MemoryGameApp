@@ -2,7 +2,7 @@ import Header from "./Header";
 import PageContentForm from "./PageContentForm";
 import PageContentGame from "./PageContentGame";
 import {BrowserRouter, Route, Routes } from "react-router-dom";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useState} from "react";
 import PageContentSetting from "./PageContentSetting";
 import EndGameContent from "./EndGameContent";
 
@@ -11,6 +11,10 @@ function MemoryGameTable(){
     const [show, setShow] = useState(false);
     const [nameAlert, setNameAlert] = useState(false);
     const [rowColAlert, setRowColAlert] = useState(false);
+    const [score, setScore] = useState(0);
+    const [rank, setRank] = useState(0);
+    const [totalRank, setTotalRank] = useState(0);
+
     return(
         <BrowserRouter>
             <Header/>
@@ -24,8 +28,8 @@ function MemoryGameTable(){
                                                                    updateNameAlert={setNameAlert}
                                                                    rowColAlert={rowColAlert}
                                                                    updateRowColAlert={setRowColAlert}/>}/>
-                <Route path="/game" element={<PageContentGame inputs={inputs}/>}/>
-                <Route path="/endGame" element={<EndGameContent/>}/>
+                <Route path="/game" element={<PageContentGame inputs={inputs} score={score} updateScore={setScore} updateRank={setRank}updateTotalRank={setTotalRank}/>}/>
+                <Route path="/endGame" element={<EndGameContent numOfCards={inputs.cols*inputs.rows} score={score} updateScore={setScore} rank={rank} totalRank={totalRank} />}/>
                 {/*<Route path="*" element={<ErrorPage />} />*/}
             </Routes>
         </BrowserRouter>

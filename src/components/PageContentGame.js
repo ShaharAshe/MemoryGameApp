@@ -6,7 +6,6 @@ import {Col, Row} from "react-bootstrap";
 function PageContentGame(props){
     const [cards, setCards] = useState([])
     const [images, setImages] = useState({});
-    const [score, setScore] = useState(0);
 
     return(
         <>
@@ -19,11 +18,11 @@ function PageContentGame(props){
                     </Row>
                     <Row>
                         <Col>
-                            <p>Score: {score}</p>
+                            <p>Score: {props.score}</p>
                         </Col>
                     </Row>
                     <Row>
-                        <CardRendering inputs={props.inputs} cards={cards} updateCards={setCards} images={images} updateImages={setImages} score={score} updateScore={setScore}/>
+                        <CardRendering inputs={props.inputs} cards={cards} updateCards={setCards} images={images} updateImages={setImages} score={props.score} updateScore={props.updateScore} updateRanke={props.updateRank}  updateTotalRank={props.updateTotalRank}/>
                         <Link className="btn btn-primary m-3" to="/">Abandon</Link>
                     </Row>
                 </>)

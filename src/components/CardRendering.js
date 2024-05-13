@@ -81,20 +81,16 @@ function CardRendering(props){
                 setExposure(e => []);
             }
             if(gameSet.length === (props.inputs.cols*props.inputs.rows)) {
-                // const leaderboardScore = {Player: props.inputs.username, Score:props.score}
-                // localStorage.setItem('leaderboard', JSON.stringify(leaderboardScore));
-                //
-                // let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
-                // leaderboard.push({Player: props.inputs.username, Score: props.score});
-                // leaderboard.sort((a, b) => b.Score - a.Score);
-                // localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
-
                 let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
                 leaderboard.push({Player: props.inputs.username, Score: props.score});
                 leaderboard.sort((a, b) => b.Score - a.Score);
                 leaderboard = leaderboard.map((item, index) => ({...item, Index: index + 1}));
                 localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
-
+                leaderboard.forEach(score=>{
+                    if(score["Score"] === props.score)
+                        props.updateRanke(score["Index"]);
+                })
+                props.updateTotalRank(leaderboard.length);
 
                 navigate("/endGame");
             }
