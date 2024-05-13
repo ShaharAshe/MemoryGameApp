@@ -1,5 +1,4 @@
 import {Button, Modal} from "react-bootstrap";
-import Table from "react-bootstrap/Table";
 import React from "react";
 import ScoreElement from "./ScoreElement";
 

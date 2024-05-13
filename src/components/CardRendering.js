@@ -11,7 +11,6 @@ function CardRendering(props){
         if(exposure.length !== 2) {
             const num_pattern = /[0-9]+$/;
             const img_num = num_pattern.exec(event.target.className.trim());
-            {console.log(img_num)}
             if (img_num && !exposure.includes(parseInt(img_num[0])))
                 setExposure(prevExposure => [...prevExposure, parseInt(img_num[0])]);
         }
@@ -35,12 +34,10 @@ function CardRendering(props){
         props.updateImages(newImages);
     };
     const createCards = (images) => {
-        {console.log(images)}
         const upCards = [];
         for (let i = 0; i < props.inputs.rows; i++) {
             const row = []
             for (let j = 0; j < props.inputs.cols; j++) {
-                {console.log(i * props.inputs.cols + j)}
                 row.push(
                     <Col xs={12/props.inputs.cols} key={i*props.inputs.cols + j} className={((i + j) * (i + 1)).toString()}>
                         <Card onClick={handleExposure}>
@@ -53,7 +50,6 @@ function CardRendering(props){
                 )
             }
             upCards.push(<Row key={i}>{row}</Row>);
-            {console.log(row)}
         }
         props.updateCards(upCards);
     };
@@ -69,8 +65,6 @@ function CardRendering(props){
     useEffect(() => {
         // Adding a delay before executing the logic
         setTimeout(() => {
-            {console.log(exposure.length)}
-            {console.log(exposure)}
             if (exposure.length === 2) {
                 if (props.images[exposure[0]] === props.images[exposure[1]]) {
                     setGameSet(addSet => [...addSet, exposure[0], exposure[1]]);
@@ -102,9 +96,6 @@ function CardRendering(props){
                 props.updateTotalRank(leaderboard.length);
 
                 navigate("/endGame");
-            }
-            {
-                console.log ("time: "+(parseFloat(props.inputs.delay)))
             }
         }, (parseFloat(props.inputs.delay)*1000));
     }, [exposure]);
