@@ -11,6 +11,7 @@ function CardRendering(props){
         if(exposure.length !== 2) {
             const num_pattern = /[0-9]+$/;
             const img_num = num_pattern.exec(event.target.className.trim());
+            {console.log(img_num)}
             if (img_num && !exposure.includes(parseInt(img_num[0])))
                 setExposure(prevExposure => [...prevExposure, parseInt(img_num[0])]);
         }
@@ -23,21 +24,23 @@ function CardRendering(props){
         for (let i = 0; i < (props.inputs.rows*props.inputs.cols)/2; ++i) {
             newImages.push(newImages[i]);
         }
-        for (let i = 0; i < (props.inputs.cols*props.inputs.cols); ++i) {
-            const change_i = Math.floor(Math.random()*(props.inputs.cols*props.inputs.cols));
+        for (let i = 0; i < (props.inputs.cols*props.inputs.rows); ++i) {
+            const change_i = Math.floor(Math.random()*(props.inputs.rows*props.inputs.cols));
             if (i % 2 !== 0) {
                 let temp = newImages[change_i];
-                newImages[change_i] = newImages[(props.inputs.cols*props.inputs.cols) - 1 - i];
-                newImages[(props.inputs.cols*props.inputs.cols) - 1 - i] = temp;
+                newImages[change_i] = newImages[(props.inputs.rows*props.inputs.cols) - 1 - i];
+                newImages[(props.inputs.rows*props.inputs.cols) - 1 - i] = temp;
             }
         }
         props.updateImages(newImages);
     };
     const createCards = (images) => {
+        {console.log(images)}
         const upCards = [];
         for (let i = 0; i < props.inputs.rows; i++) {
             const row = []
             for (let j = 0; j < props.inputs.cols; j++) {
+                {console.log(i * props.inputs.cols + j)}
                 row.push(
                     <Col xs={12/props.inputs.cols} key={i*props.inputs.cols + j} className={((i + j) * (i + 1)).toString()}>
                         <Card onClick={handleExposure}>
@@ -50,6 +53,7 @@ function CardRendering(props){
                 )
             }
             upCards.push(<Row key={i}>{row}</Row>);
+            {console.log(row)}
         }
         props.updateCards(upCards);
     };
@@ -82,10 +86,15 @@ function CardRendering(props){
             }
             if(gameSet.length === (props.inputs.cols*props.inputs.rows)) {
                 let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
-                leaderboard.push({Player: props.inputs.username, Score: props.score});
+                let existingUser = leaderboard.find(item => item.Player === props.inputs.username);
+                if (existingUser && props.score > existingUser.Score)
+                    existingUser.Score = props.score;
+                else
+                    leaderboard.push({Player: props.inputs.username, Score: props.score});
                 leaderboard.sort((a, b) => b.Score - a.Score);
                 leaderboard = leaderboard.map((item, index) => ({...item, Index: index + 1}));
                 localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+
                 leaderboard.forEach(score=>{
                     if(score["Score"] === props.score)
                         props.updateRanke(score["Index"]);
@@ -94,7 +103,10 @@ function CardRendering(props){
 
                 navigate("/endGame");
             }
-        }, 1000); // Adjust the delay time as needed (in milliseconds)
+            {
+                console.log ("time: "+(parseFloat(props.inputs.delay)))
+            }
+        }, (parseFloat(props.inputs.delay)*1000));
     }, [exposure]);
 
     return (
