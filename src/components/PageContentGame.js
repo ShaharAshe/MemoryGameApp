@@ -7,6 +7,7 @@ function PageContentGame(props){
     const [cards, setCards] = useState([])
     const [images, setImages] = useState({});
     const [score, setScore] = useState(0);
+
     return(
         <>
             {props.inputs.username?

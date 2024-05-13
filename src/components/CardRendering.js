@@ -1,14 +1,17 @@
 import {useEffect, useState} from "react";
 import {Card, Col, Row} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
 
 function CardRendering(props){
     const [exposure, setExposure] = useState([]);
-    const [gameSet, setGameSet] = useState([])
+    const [gameSet, setGameSet] = useState([]);
+    const navigate = useNavigate();
+
     function handleExposure(event) {
         if(exposure.length !== 2) {
             const num_pattern = /[0-9]+$/;
             const img_num = num_pattern.exec(event.target.className.trim());
-            if (img_num && !gameSet.includes(parseInt(img_num[0])))
+            if (img_num && !exposure.includes(parseInt(img_num[0])))
                 setExposure(prevExposure => [...prevExposure, parseInt(img_num[0])]);
         }
     }
@@ -76,6 +79,24 @@ function CardRendering(props){
                         props.updateScore(a => a-5)
                 }
                 setExposure(e => []);
+            }
+            if(gameSet.length === (props.inputs.cols*props.inputs.rows)) {
+                // const leaderboardScore = {Player: props.inputs.username, Score:props.score}
+                // localStorage.setItem('leaderboard', JSON.stringify(leaderboardScore));
+                //
+                // let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+                // leaderboard.push({Player: props.inputs.username, Score: props.score});
+                // leaderboard.sort((a, b) => b.Score - a.Score);
+                // localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+
+                let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+                leaderboard.push({Player: props.inputs.username, Score: props.score});
+                leaderboard.sort((a, b) => b.Score - a.Score);
+                leaderboard = leaderboard.map((item, index) => ({...item, Index: index + 1}));
+                localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+
+
+                navigate("/endGame");
             }
         }, 1000); // Adjust the delay time as needed (in milliseconds)
     }, [exposure]);
