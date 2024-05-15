@@ -5,10 +5,34 @@ You are given sample images for the project in the public folder. Feel free to u
 ## Authors
 
 Name and email:
+- <u>Name</u>: Shahar Asher
+- <u>Email</u>: shaharas@edu.hac.ac.il
 
 ## General Information
 
+The Memory Game Application is a web-based game designed to test and improve users' memory skills. Players can flip cards to reveal hidden images and try to match pairs within a set of cards.
 
+### Features
+
+- Enter your name to start the game.
+- Adjust game settings such as the number of rows, columns, and delay.
+- Flip cards to find matching pairs.
+- View leaderboard scores to track your performance.
+- Abandon the game at any time.
+
+### Technologies
+
+- React.js
+- React Bootstrap
+- React Router
+
+### Target Audience
+
+This project is suitable for users of all ages who enjoy playing memory games and want to challenge their cognitive abilities.
+
+### Scope
+
+The Memory Game Application covers the basic functionality of a memory game, including card flipping, matching pairs, and score tracking. It does not include advanced features such as multiplayer support or complex game mechanics.
 
 ## Available Scripts
 

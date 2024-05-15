@@ -5,6 +5,7 @@ import {BrowserRouter, Route, Routes } from "react-router-dom";
 import React, {useState} from "react";
 import PageContentSetting from "./PageContentSetting";
 import EndGameContent from "./EndGameContent";
+import ErrorPage from "./ErrorPage";
 
 function MemoryGameTable(){
     const [inputs, setInputs] = useState({username:"", rows:4, cols:4, delay:0.5});
@@ -30,7 +31,7 @@ function MemoryGameTable(){
                                                                    updateRowColAlert={setRowColAlert}/>}/>
                 <Route path="/game" element={<PageContentGame inputs={inputs} score={score} updateScore={setScore} updateRank={setRank}updateTotalRank={setTotalRank}/>}/>
                 <Route path="/endGame" element={<EndGameContent numOfCards={inputs.cols*inputs.rows} score={score} updateScore={setScore} rank={rank} totalRank={totalRank} />}/>
-                {/*<Route path="*" element={<ErrorPage />} />*/}
+                <Route path="*" element={<ErrorPage />} />
             </Routes>
         </BrowserRouter>
     );

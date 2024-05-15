@@ -17,7 +17,7 @@ function SettingForm(props){
                             <label htmlFor="rows" className="form-label">Number of rows:</label>
                             <input
                                 id="rows"
-                                type="text"
+                                type="number"
                                 name="rows"
                                 value={props.inputs.rows || ""}
                                 onChange={handleChange}
@@ -30,7 +30,7 @@ function SettingForm(props){
                             <label htmlFor="cols" className="form-label">Number of columns:</label>
                             <input
                                 id="cols"
-                                type="text"
+                                type="number"
                                 name="cols"
                                 value={props.inputs.cols || ""}
                                 onChange={handleChange}

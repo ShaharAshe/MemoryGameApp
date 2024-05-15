@@ -54,6 +54,43 @@ function CardRendering(props){
         props.updateCards(upCards);
     };
 
+    function saveLocal() {
+        if(gameSet.length === (props.inputs.cols*props.inputs.rows)) {
+            let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+            let existingUser = leaderboard.find(item => item.Player === props.inputs.username);
+            if (existingUser && props.score > existingUser.Score)
+                existingUser.Score = props.score;
+            else
+                leaderboard.push({Player: props.inputs.username, Score: props.score});
+            leaderboard.sort((a, b) => b.Score - a.Score);
+            leaderboard = leaderboard.map((item, index) => ({...item, Index: index + 1}));
+            localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+
+            leaderboard.forEach(score => {
+                if (score["Score"] === props.score)
+                    props.updateRanke(score["Index"]);
+            })
+            props.updateTotalRank(leaderboard.length);
+
+            navigate("/endGame");
+        }
+    }
+
+    function exposureHandle() {
+        if (exposure.length === 2) {
+            if (props.images[exposure[0]] === props.images[exposure[1]]) {
+                setGameSet(addSet => [...addSet, exposure[0], exposure[1]]);
+                props.updateScore(a => a+10)
+            } else{
+                if(props.score-5<0)
+                    props.updateScore(a => 0)
+                else
+                    props.updateScore(a => a-5)
+            }
+            setExposure(e => []);
+        }
+    }
+
     useEffect(() => {
         initializeImages();
     },[]);
@@ -65,38 +102,8 @@ function CardRendering(props){
     useEffect(() => {
         // Adding a delay before executing the logic
         setTimeout(() => {
-            if (exposure.length === 2) {
-                if (props.images[exposure[0]] === props.images[exposure[1]]) {
-                    setGameSet(addSet => [...addSet, exposure[0], exposure[1]]);
-                    props.updateScore(a => a+10)
-                }
-                else{
-                    if(props.score-5<0)
-                        props.updateScore(a => 0)
-                    else
-                        props.updateScore(a => a-5)
-                }
-                setExposure(e => []);
-            }
-            if(gameSet.length === (props.inputs.cols*props.inputs.rows)) {
-                let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
-                let existingUser = leaderboard.find(item => item.Player === props.inputs.username);
-                if (existingUser && props.score > existingUser.Score)
-                    existingUser.Score = props.score;
-                else
-                    leaderboard.push({Player: props.inputs.username, Score: props.score});
-                leaderboard.sort((a, b) => b.Score - a.Score);
-                leaderboard = leaderboard.map((item, index) => ({...item, Index: index + 1}));
-                localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
-
-                leaderboard.forEach(score=>{
-                    if(score["Score"] === props.score)
-                        props.updateRanke(score["Index"]);
-                })
-                props.updateTotalRank(leaderboard.length);
-
-                navigate("/endGame");
-            }
+            exposureHandle();
+            saveLocal();
         }, (parseFloat(props.inputs.delay)*1000));
     }, [exposure]);
 

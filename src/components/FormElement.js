@@ -3,7 +3,7 @@ import {Link, useNavigate, useNavigation} from "react-router-dom";
 import PageContentModal from "./PageContentModal";
 
 function FormElement(props){
-    const userName_pattern = /^[A-Za-z]{1,12}$/;
+    const userName_pattern = /^\w{1,12}$/;
     const navigate = useNavigate();
 
     const handleChange = (event) => {
@@ -48,10 +48,8 @@ function FormElement(props){
                                 placeholder="Enter Your Name"
                             />
                         </div>
-                        {props.nameAlert?<div className="bad-val-fu alert alert-danger">Username should have
-                            the letters a-z and A-Z. And maximum 12 letters!</div>:""}
+                        {props.nameAlert?<div className="bad-val-fu alert alert-danger">Username should include English letters or numbers.<div>And maximum 12 letters!</div></div>:""}
                         <div>
-                            {/*<Link className="btn btn-primary" to="/game" onSubmit={handleSubmit}>Play</Link>*/}
                             <Button variant="primary" type="submit">Play</Button>
                             <Link className="btn btn-primary" to="/setting">Setting</Link>
                             <Button variant="primary" onClick={handleShow} type="button">High Score</Button>
