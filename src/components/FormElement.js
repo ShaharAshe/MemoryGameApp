@@ -33,9 +33,11 @@ function FormElement(props){
 
     return(
         <>
-            <Row>
-                <Col>
+            <Row className="text-center">
+                <Col className="text-center">
                     <form action="#" onSubmit={handleSubmit}>
+                        <Row className="text-center">
+                            <Col className="text-center" xs={12}>
                         <div>
                             <label htmlFor="username" className="form-label">Your name:</label>
                             <input
@@ -49,11 +51,15 @@ function FormElement(props){
                             />
                         </div>
                         {props.nameAlert?<div className="bad-val-fu alert alert-danger">Username should include English letters or numbers.<div>And maximum 12 letters!</div></div>:""}
+                            </Col>
+                            <Col className="text-center" xs={12}>
                         <div>
                             <Button variant="primary" type="submit">Play</Button>
                             <Link className="btn btn-primary" to="/setting">Setting</Link>
                             <Button variant="primary" onClick={handleShow} type="button">High Score</Button>
                         </div>
+                            </Col>
+                        </Row>
                     </form>
                 </Col>
             </Row>

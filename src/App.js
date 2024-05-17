@@ -5,7 +5,7 @@ import {Container} from "react-bootstrap";
 function App() {
   return (
       <div className="App">
-          <Container className="fluid">
+          <Container className="fluid text-center">
               <MemoryGameTable/>
           </Container>
       </div>

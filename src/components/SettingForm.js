@@ -1,4 +1,4 @@
-import {Col, Row} from "react-bootstrap";
+import {Button, Col, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
 function SettingForm(props){
@@ -8,58 +8,75 @@ function SettingForm(props){
         props.updateInput(values => ({...values, [name]: value}))
     }
 
+    const handleReset = (event) => {
+        props.updateInput({username:"", rows:4, cols:4, delay:0.5});
+    }
+
     return(
         <>
-            <Row>
-                <Col>
+            <Row className="text-center">
+                <Col className="text-center">
                     <form action="#">
-                        <div>
-                            <label htmlFor="rows" className="form-label">Number of rows:</label>
-                            <input
-                                id="rows"
-                                type="number"
-                                name="rows"
-                                value={props.inputs.rows || ""}
-                                onChange={handleChange}
-                                className="form-control"
-                                min="2"
-                                max="5"
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="cols" className="form-label">Number of columns:</label>
-                            <input
-                                id="cols"
-                                type="number"
-                                name="cols"
-                                value={props.inputs.cols || ""}
-                                onChange={handleChange}
-                                className="form-control"
-                                min="2"
-                                max="5"
-                            />
-                        </div>
-                        {props.rowColAlert?<div className="bad-val-fu alert alert-danger">(row x col) should be even. Also, the cols and the rows should be between 2 and 5</div>:""}
-                        <div>
-                            <label htmlFor="customRange3" className="form-label">
-                                Delay (in seconds): {props.inputs.delay||""}
-                            </label>
-                            <input
-                                type="range"
-                                name="delay"
-                                className="form-range"
-                                min="0.5"
-                                max="2"
-                                step="0.1"
-                                id="customRange3"
-                                value={props.inputs.delay}
-                                onChange={handleChange}
-                            />
-                        </div>
+                        <Row className="text-center">
+                            <Col className="text-center" xs={12}>
+                                <div>
+                                    <label htmlFor="rows" className="form-label">Number of rows:</label>
+                                    <input
+                                        id="rows"
+                                        type="number"
+                                        name="rows"
+                                        value={props.inputs.rows || ""}
+                                        onChange={handleChange}
+                                        className="form-control"
+                                        min="2"
+                                        max="5"
+                                    />
+                                </div>
+                            </Col>
+                            <Col className="text-center" xs={12}>
+                                <div>
+                                    <label htmlFor="cols" className="form-label">Number of columns:</label>
+                                    <input
+                                        id="cols"
+                                        type="number"
+                                        name="cols"
+                                        value={props.inputs.cols || ""}
+                                        onChange={handleChange}
+                                        className="form-control"
+                                        min="2"
+                                        max="5"
+                                    />
+                                </div>
+                                {props.rowColAlert?<div className="bad-val-fu alert alert-danger">(row x col) should be even. Also, the cols and the rows should be between 2 and 5</div>:""}
+                            </Col>
+                            <Col className="text-center" xs={12}>
+                                <div>
+                                    <label htmlFor="customRange3" className="form-label">
+                                        Delay (in seconds): {props.inputs.delay||""}
+                                    </label>
+                                    <input
+                                        type="range"
+                                        name="delay"
+                                        className="form-range"
+                                        min="0.5"
+                                        max="2"
+                                        step="0.1"
+                                        id="customRange3"
+                                        value={props.inputs.delay}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                            </Col>
+                        </Row>
                     </form>
-                    <div>
-                        <Link className="btn btn-primary" to="/">Close Setting</Link>
-                    </div>
+                    <Row>
+                        <Col className="text-center" xs={12}>
+                            <div>
+                                <Button variant="primary" onClick={handleReset} type="button">Reset Default</Button>
+                                <Link className="btn btn-primary" to="/">Close Setting</Link>
+                            </div>
+                        </Col>
+                    </Row>
                 </Col>
             </Row>
         </>

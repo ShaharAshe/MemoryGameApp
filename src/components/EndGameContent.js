@@ -8,24 +8,24 @@ function EndGameContent(props){
         <>
             {props.rank?(
                 <>
-                    <Row>
-                        <Col xs={12}>
+                    <Row className="text-center">
+                        <Col className="text-center" xs={12}>
                             <h2><b>Game Over!</b></h2>
                         </Col>
                     </Row>
-                    <Row>
-                        <Col xs={12}>
-                            <p>Number of cards played: {props.numOfCards}</p>
+                    <Row className="text-center">
+                        <Col className="text-center" xs={12}>
+                            <p>Number of cards played: <b>{props.numOfCards}</b></p>
                         </Col>
-                        <Col xs={12}>
-                            <p>score: {props.score}. You are ranked {props.rank} out of {props.totalRank}</p>
+                        <Col className="text-center" xs={12}>
+                            <p><b>score:</b> {props.score}. You are ranked <b>{props.rank}</b> out of {props.totalRank}</p>
                         </Col>
                     </Row>
-                    <Row>
-                        <Col xs={12}>
+                    <Row className="text-center">
+                        <Col className="text-center" xs={12}>
                             <ScoreElement/>
                         </Col>
-                        <Col xs={12}>
+                        <Col className="text-center" xs={12}>
                             <a className="btn btn-primary" href="/">OK</a>
                         </Col>
                     </Row>
@@ -33,14 +33,14 @@ function EndGameContent(props){
                 )
                 :
                 (
-                    <Row>
-                        <Col xs={12}>
+                    <Row className="text-center">
+                        <Col className="text-center" xs={12}>
                             <h1>This page can only be seen after finishing a game!</h1>
                         </Col>
-                        <Col xs={12}>
+                        <Col className="text-center" xs={12}>
                             <h3>You need to go back to the main page and start a new game 🕹️</h3>
                         </Col>
-                        <Col xs={12}>
+                        <Col className="text-center" xs={12}>
                             <Link className="btn btn-primary" to="/">main</Link>
                         </Col>
                     </Row>
