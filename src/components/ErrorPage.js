@@ -1,6 +1,10 @@
 import {Link} from "react-router-dom";
 import {Col, Row} from "react-bootstrap";
 
+/**
+ * Component for rendering the error page.
+ * @returns {JSX.Element} - Rendered ErrorPage component.
+ */
 function ErrorPage(){
     return(
         <>

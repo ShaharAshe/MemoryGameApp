@@ -1,6 +1,10 @@
 import FormElement from "./FormElement";
 
-
+/**
+ * Component for rendering the form page content.
+ * @param {Object} props - Component props containing inputs and event handlers.
+ * @returns {JSX.Element} - Rendered PageContentForm component.
+ */
 function PageContentForm(props){
     return(
         <>

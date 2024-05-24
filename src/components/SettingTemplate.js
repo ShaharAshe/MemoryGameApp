@@ -1,5 +1,10 @@
 import {Col, Row} from "react-bootstrap";
 
+/**
+ * Component for rendering the form template for game settings.
+ * @param {Object} props - Component props containing inputs and event handlers.
+ * @returns {JSX.Element} - Rendered SettingTemplate component.
+ */
 function SettingTemplate(props){
     return (
         <div>
@@ -35,8 +40,12 @@ function SettingTemplate(props){
                         />
                     </div>
                     {props.rowColAlert ?
-                        <div className="bad-val-fu alert alert-danger">(row x col) should be even. Also, the cols and the
-                            rows should be between 2 and 5</div> : ""}
+                        (
+                            <div className="bad-val-fu alert alert-danger">(row x col) should be even. Also, the cols and the
+                            rows should be between 2 and 5</div>
+                        )
+                        :
+                        ""}
                 </Col>
                 <Col className="text-center" xs={12}>
                     <div>

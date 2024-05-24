@@ -1,8 +1,15 @@
 import Table from "react-bootstrap/Table";
 import React from "react";
 
+/**
+ * Component for rendering the leaderboard.
+ * @returns {JSX.Element} - Rendered ScoreElement component.
+ */
 function ScoreElement(){
+    // Retrieve leaderboard data from local storage or initialize as an empty array
     const leaderboard = JSON.parse(localStorage.getItem('leaderboard'))||[];
+
+    // Map each score entry to a table row
     const listItems = leaderboard.map(score =>
         <tr key={score["Index"]}>
             <td>{score["Index"]}</td>

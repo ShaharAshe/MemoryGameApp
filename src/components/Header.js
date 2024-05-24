@@ -1,5 +1,9 @@
 import {Col, Row} from "react-bootstrap";
 
+/**
+ * Component for rendering the header of the application.
+ * @returns {JSX.Element} - Rendered Header component.
+ */
 function Header(){
     return(
         <Row className="text-center" style={{backgroundColor: 'lightgray'}}>

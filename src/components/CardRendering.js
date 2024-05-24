@@ -3,11 +3,21 @@ import {Row} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import CardShow from "./CardShow";
 
+/**
+ * Component responsible for managing the logic and rendering of memory game cards.
+ * @param {Object} props - Component props containing inputs, images, and functions for updating state.
+ * @returns {JSX.Element} - Rendered CardRendering component.
+ */
 function CardRendering(props){
     const [exposure, setExposure] = useState([]);
     const [gameSet, setGameSet] = useState([]);
     const navigate = useNavigate();
 
+    /**
+     * Event handler for card exposure (flipping).
+     * Adds the clicked card to the exposure state if fewer than two cards are exposed.
+     * @param {Event} event - Click event object.
+     */
     function handleExposure(event) {
         if(exposure.length !== 2) {
             const num_pattern = /[0-9]+$/;
@@ -16,14 +26,22 @@ function CardRendering(props){
                 setExposure(prevExposure => [...prevExposure, parseInt(img_num[0])]);
         }
     }
+
+    /**
+     * Initializes the images for the game.
+     * Generates pairs of image paths, shuffles them, and updates the images state.
+     */
     const initializeImages = () => {
+        // Create an array of image paths
         const newImages = [];
         for (let i = 0; i < (props.inputs.rows*props.inputs.cols)/2; ++i) {
             newImages[i] = '\\images\\' + i + '.jpg';
         }
+        // Duplicate the image paths to create pairs
         for (let i = 0; i < (props.inputs.rows*props.inputs.cols)/2; ++i) {
             newImages.push(newImages[i]);
         }
+        // Shuffle the image paths
         for (let i = 0; i < (props.inputs.cols*props.inputs.rows); ++i) {
             const change_i = Math.floor(Math.random()*(props.inputs.rows*props.inputs.cols));
             if (i % 2 !== 0) {
@@ -32,8 +50,15 @@ function CardRendering(props){
                 newImages[(props.inputs.rows*props.inputs.cols) - 1 - i] = temp;
             }
         }
+        // Update the images state
         props.updateImages(newImages);
     };
+
+    /**
+     * Creates card components based on the images.
+     * Generates rows and columns of CardShow components.
+     * @param {string[]} images - Array of image paths.
+     */
     const createCards = (images) => {
         const upCards = [];
         for (let i = 0; i < props.inputs.rows; i++) {
@@ -46,6 +71,10 @@ function CardRendering(props){
         props.updateCards(upCards);
     };
 
+    /**
+     * Saves game results to local storage and navigates to the end game page.
+     * Checks if all cards are matched, updates the leaderboard, and navigates to the end game page.
+     */
     function saveLocal() {
         if(gameSet.length === (props.inputs.cols*props.inputs.rows)) {
             let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
@@ -70,6 +99,10 @@ function CardRendering(props){
         }
     }
 
+    /**
+     * Handles card exposure and checks for matches.
+     * Updates the game state based on the exposed cards.
+     */
     function exposureHandle() {
         if (exposure.length === 2) {
             if (props.images[exposure[0]] === props.images[exposure[1]]) {
@@ -85,15 +118,18 @@ function CardRendering(props){
         }
     }
 
+    // Effect hook to initialize images when the component mounts
     useEffect(() => {
         initializeImages();
     },[]);
 
+    // Effect hook to create cards when the images state changes
     useEffect(() => {
         if (Object.keys(props.images).length > 0)
             createCards(props.images);
     }, [props.images, exposure]);
 
+    // Effect hook to handle card exposure and game end logic
     useEffect(() => {
         setTimeout(() => {
             exposureHandle();

@@ -2,6 +2,11 @@ import FormElement from "./FormElement";
 import React from "react";
 import SettingForm from "./SettingForm";
 
+/**
+ * Component for rendering the setting page content.
+ * @param {Object} props - Component props containing inputs and event handlers.
+ * @returns {JSX.Element} - Rendered PageContentSetting component.
+ */
 function PageContentSetting(props){
     return (
         <>

@@ -3,6 +3,11 @@ import {Col, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import React from "react";
 
+/**
+ * Component for rendering the end game page content.
+ * @param {Object} props - Component props containing game result data.
+ * @returns {JSX.Element} - Rendered EndGameContent component.
+ */
 function EndGameContent(props){
     return(
         <>

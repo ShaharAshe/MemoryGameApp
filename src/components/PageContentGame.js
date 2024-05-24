@@ -3,6 +3,11 @@ import React, {useState} from "react";
 import CardRendering from "./CardRendering";
 import {Col, Row} from "react-bootstrap";
 
+/**
+ * Component for rendering the game page content.
+ * @param {Object} props - Component props containing inputs and event handlers.
+ * @returns {JSX.Element} - Rendered PageContentGame component.
+ */
 function PageContentGame(props){
     const [cards, setCards] = useState([])
     const [images, setImages] = useState({});

@@ -1,6 +1,11 @@
 import {Col, Row} from "react-bootstrap";
 import FormButtons from "./FormButtons";
 
+/**
+ * Component for rendering the form template for game settings.
+ * @param {Object} props - Component props containing inputs and event handlers.
+ * @returns {JSX.Element} - Rendered FormTemplate component.
+ */
 function FormTemplate(props){
     return(
         <form action="#" onSubmit={props.handleSubmit}>

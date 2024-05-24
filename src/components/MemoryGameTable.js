@@ -7,6 +7,10 @@ import PageContentSetting from "./PageContentSetting";
 import EndGameContent from "./EndGameContent";
 import ErrorPage from "./ErrorPage";
 
+/**
+ * Main component for managing routing and layout of the application.
+ * @returns {JSX.Element} - Rendered MemoryGameTable component.
+ */
 function MemoryGameTable(){
     const [inputs, setInputs] = useState({username:"", rows:4, cols:4, delay:0.5});
     const [show, setShow] = useState(false);

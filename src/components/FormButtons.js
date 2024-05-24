@@ -1,6 +1,11 @@
 import {Button} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
+/**
+ * Component for rendering buttons in the form.
+ * @param {Object} props - Component props containing event handlers.
+ * @returns {JSX.Element} - Rendered FormButtons component.
+ */
 function FormButtons(props){
     return (
         <div>
