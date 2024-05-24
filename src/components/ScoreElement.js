@@ -17,9 +17,7 @@ function ScoreElement(){
                 <thead>
                 {
                     leaderboard.length === 0 ?
-                        (<tr>
-                            <th>The table is empty! There were no games yet 🎮</th>
-                        </tr>)
+                        (<tr><th>The table is empty! There were no games yet 🎮</th></tr>)
                         :
                         (<tr>
                             <th>Rank</th>
@@ -27,11 +25,8 @@ function ScoreElement(){
                             <th>Score</th>
                         </tr>)
                 }
-
                 </thead>
-                <tbody>
-                {listItems}
-                </tbody>
+                <tbody>{listItems}</tbody>
             </Table>
         </>
     );

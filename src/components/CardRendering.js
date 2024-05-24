@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
-import {Card, Col, Row} from "react-bootstrap";
+import {Row} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
+import CardShow from "./CardShow";
 
 function CardRendering(props){
     const [exposure, setExposure] = useState([]);
@@ -38,16 +39,7 @@ function CardRendering(props){
         for (let i = 0; i < props.inputs.rows; i++) {
             const row = []
             for (let j = 0; j < props.inputs.cols; j++) {
-                row.push(
-                    <Col xs={12/props.inputs.cols} key={i*props.inputs.cols + j} className={((i + j) * (i + 1)).toString()}>
-                        <Card onClick={handleExposure}>
-                        {(gameSet.includes(i * props.inputs.cols + j) || exposure.includes(i * props.inputs.cols + j))?
-                            (<Card.Img variant="top" src={images[i * props.inputs.cols + j]} className={(i * props.inputs.cols + j).toString()}/>)
-                            :
-                            (<Card.Img variant="top" src={'\\images\\card.jpg'} className={(i * props.inputs.cols + j).toString()}/>)}
-                        </Card>
-                    </Col>
-                )
+                row.push(<CardShow inputs={props.inputs} i={i} j={j} handleExposure={handleExposure} gameSet={gameSet} images={images} exposure={exposure}/>)
             }
             upCards.push(<Row key={i}>{row}</Row>);
         }
@@ -58,10 +50,12 @@ function CardRendering(props){
         if(gameSet.length === (props.inputs.cols*props.inputs.rows)) {
             let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
             let existingUser = leaderboard.find(item => item.Player === props.inputs.username);
+
             if (existingUser && props.score > existingUser.Score)
                 existingUser.Score = props.score;
             else
                 leaderboard.push({Player: props.inputs.username, Score: props.score});
+
             leaderboard.sort((a, b) => b.Score - a.Score);
             leaderboard = leaderboard.map((item, index) => ({...item, Index: index + 1}));
             localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
@@ -81,7 +75,7 @@ function CardRendering(props){
             if (props.images[exposure[0]] === props.images[exposure[1]]) {
                 setGameSet(addSet => [...addSet, exposure[0], exposure[1]]);
                 props.updateScore(a => a+10)
-            } else{
+            } else {
                 if(props.score-5<0)
                     props.updateScore(a => 0)
                 else
@@ -94,13 +88,13 @@ function CardRendering(props){
     useEffect(() => {
         initializeImages();
     },[]);
+
     useEffect(() => {
-        if (Object.keys(props.images).length > 0) {
+        if (Object.keys(props.images).length > 0)
             createCards(props.images);
-        }
     }, [props.images, exposure]);
+
     useEffect(() => {
-        // Adding a delay before executing the logic
         setTimeout(() => {
             exposureHandle();
             saveLocal();

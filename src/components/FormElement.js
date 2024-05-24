@@ -1,6 +1,7 @@
-import {Button, Col, Row} from "react-bootstrap";
-import {Link, useNavigate, useNavigation} from "react-router-dom";
+import {Col, Row} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
 import PageContentModal from "./PageContentModal";
+import FormTemplate from "./FormTemplate";
 
 function FormElement(props){
     const userName_pattern = /^\w{1,12}$/;
@@ -35,32 +36,7 @@ function FormElement(props){
         <>
             <Row className="text-center">
                 <Col className="text-center">
-                    <form action="#" onSubmit={handleSubmit}>
-                        <Row className="text-center">
-                            <Col className="text-center" xs={12}>
-                        <div>
-                            <label htmlFor="username" className="form-label">Your name:</label>
-                            <input
-                                id="username"
-                                type="text"
-                                name="username"
-                                value={props.inputs.username || ""}
-                                onChange={handleChange}
-                                className="form-control"
-                                placeholder="Enter Your Name"
-                            />
-                        </div>
-                        {props.nameAlert?<div className="bad-val-fu alert alert-danger">Username should include English letters or numbers.<div>And maximum 12 letters!</div></div>:""}
-                            </Col>
-                            <Col className="text-center" xs={12}>
-                        <div>
-                            <Button variant="primary" type="submit">Play</Button>
-                            <Link className="btn btn-primary" to="/setting">Setting</Link>
-                            <Button variant="primary" onClick={handleShow} type="button">High Score</Button>
-                        </div>
-                            </Col>
-                        </Row>
-                    </form>
+                    <FormTemplate username={props.inputs.username} handleChange={handleChange} handleShow={handleShow} handleSubmit={handleSubmit} nameAlert={props.nameAlert}/>
                 </Col>
             </Row>
             <PageContentModal show={props.show} updateShow={props.updateShow}/>

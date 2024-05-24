@@ -31,12 +31,14 @@ function PageContentGame(props){
                     </Row>
                 </>)
                 :
-                (<Row className="text-center">
-                    <Col className="text-center">
-                        <h1>You need to go back to the main page and enter your name 🔙</h1>
-                        <Link className="btn btn-primary" to="/">main</Link>
-                    </Col>
-                </Row>)
+                (
+                    <Row className="text-center">
+                        <Col className="text-center">
+                            <h1>You need to go back to the main page and enter your name 🔙</h1>
+                            <Link className="btn btn-primary" to="/">main</Link>
+                        </Col>
+                    </Row>
+                )
             }
         </>
     );
